@@ -2,7 +2,7 @@
 ### Description
 Data were collected after mapping all fastq files to the mm10 genome with the cellranger v5.0 software with default paramaters by using "cellranger count". Details for alignment will be found in the "web_summary.html" in the each data file
 ### Required packages:
-Seurat v3, CellChat(v1.0.0), tidyverse, richR, scGSVA, VennDetail, SCENIC(v1.2.2), ggrepel
+Seurat v3, CellChat, tidyverse, richR, scGSVA, VennDetail, SCENIC(v1.2.2), ggrepel
 ```{}
 install.packages(c('Seurat','tidyverse'))
 BicManager::install(c("CellChat","VennDetail","SCENIC))
