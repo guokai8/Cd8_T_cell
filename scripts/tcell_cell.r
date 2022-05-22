@@ -1,6 +1,7 @@
 library(CellChat)
 library(Seurat)
 library(tidyverse)
+samf$seurat_clusters<-paste0("C",as.vector(samf$seurat_clusters))
 Idents(samf)<-"seurat_clusters"
 mockd<-subset(samf,Time=="Mock")
 d7d<-subset(samf,Time=="D7")
@@ -19,7 +20,6 @@ showDatabaseCategory(mcDB)
 #mcDB.use <- subsetDB(mcDB, search = "Secreted Signaling") 
 mc@DB<-mcDB.use
 mc <- subsetData(mc) # subset the expression data of signaling genes for saving computation cost
-future::plan("multiprocess", workers = 40) # do parallel
 mc <- identifyOverExpressedGenes(mc)
 mc <- identifyOverExpressedInteractions(mc)
 mc <- projectData(mc, PPI.mouse)
@@ -64,7 +64,6 @@ d7@DB<-d7DB.use
 #CellChatDB.use = CellChatDB.mouse
 #d7@DB<-cellchatDB.use
 d7 <- subsetData(d7) # subset the expression data of signaling genes for saving computation cost
-future::plan("multiprocess", workers = 40) # do parallel
 d7 <- identifyOverExpressedGenes(d7)
 d7 <- identifyOverExpressedInteractions(d7)
 d7 <- projectData(d7, PPI.mouse)
@@ -106,7 +105,6 @@ showDatabaseCategory(d14DB)
 #d14DB.use <- subsetDB(d14DB, search = "Secreted Signaling") 
 d14@DB<-d14DB.use
 d14 <- subsetData(d14) # subset the expression data of signaling genes for saving computation cost
-future::plan("multiprocess", workers = 40) # do parallel
 d14 <- identifyOverExpressedGenes(d14)
 d14 <- identifyOverExpressedInteractions(d14)
 d14 <- projectData(d14, PPI.mouse)
@@ -141,27 +139,27 @@ num.link <- sapply(object.list, function(x) {rowSums(x@net$count) + colSums(x@ne
 weight.MinMax <- c(min(num.link), max(num.link)) # control the dot size in the different datasets
 gg <- list()
 for (i in 1:length(object.list)) {
-  gg[[i]] <- netAnalysis_signalingRole_scatter(object.list[[i]], title = names(object.list)[i], weight.MinMax = weight.MinMax,color.use = pcols)+xlim(0,10)+ylim(0,15)+theme_classic(base_size = 12)
+  gg[[i]] <- netAnalysis_signalingRole_scatter(object.list[[i]], title = names(object.list)[i], weight.MinMax = weight.MinMax,color.use = pcols)+theme_classic()+xlim(0,12)+ylim(0,18)
 }
 #> Signaling role analysis on the aggregated cell-cell communication network from all signaling pathways
 #> Signaling role analysis on the aggregated cell-cell communication network from all signaling pathways
 patchwork::wrap_plots(plots = gg)
-dev.print(pdf,file="all_interaction.pdf")
+dev.print(pdf,file="all_interaction_v3.pdf")
 #####
 i = 1
 # combining all the identified signaling pathways from different datasets 
 #####
 library(ComplexHeatmap)
 pathway.union <- union(object.list[[1]]@netP$pathways, union(object.list[[2]]@netP$pathways,object.list[[3]]@netP$pathways))
-ht1 = netAnalysis_signalingRole_heatmap(object.list[[1]], pattern = "outgoing", signaling = pathway.union, title = names(object.list)[1], width = 6, height = 16,color.use = pcols)
-ht2 = netAnalysis_signalingRole_heatmap(object.list[[2]], pattern = "outgoing", signaling = pathway.union, title = names(object.list)[2], width = 6, height = 16,color.use = pcols)
-ht3 = netAnalysis_signalingRole_heatmap(object.list[[3]], pattern = "outgoing", signaling = pathway.union, title = names(object.list)[3], width = 6, height = 16,color.use = pcols)
+ht1 = netAnalysis_signalingRole_heatmap(object.list[[1]], pattern = "outgoing", signaling = pathway.union, title = names(object.list)[1], width = 6, height = 12,color.use = pcols)
+ht2 = netAnalysis_signalingRole_heatmap(object.list[[2]], pattern = "outgoing", signaling = pathway.union, title = names(object.list)[2], width = 6, height = 12,color.use = pcols)
+ht3 = netAnalysis_signalingRole_heatmap(object.list[[3]], pattern = "outgoing", signaling = pathway.union, title = names(object.list)[3], width = 6, height = 12,color.use = pcols)
 
-draw(ht1 + ht2+ht3, ht_gap = unit(0.5, "cm"))
-dev.print(pdf,file="outgoing_all.pdf")
-ht1 = netAnalysis_signalingRole_heatmap(object.list[[1]], pattern = "incoming", signaling = pathway.union, title = names(object.list)[1], width = 6, height = 16,color.use = pcols,color.heatmap = "GnBu")
-ht2 = netAnalysis_signalingRole_heatmap(object.list[[2]], pattern = "incoming", signaling = pathway.union, title = names(object.list)[2], width = 6, height = 16,color.use = pcols,color.heatmap = "GnBu")
-ht3 = netAnalysis_signalingRole_heatmap(object.list[[3]], pattern = "incoming", signaling = pathway.union, title = names(object.list)[3], width = 6, height = 16,color.use = pcols,color.heatmap = "GnBu")
-draw(ht1 + ht2+ht3, ht_gap = unit(0.5, "cm"))
-dev.print(pdf,file="incoming_all.pdf")
-
+draw(ht1 + ht2+ht3, ht_gap = unit(0.2, "cm"))
+dev.print(pdf,file="f3B.pdf")
+ht1 = netAnalysis_signalingRole_heatmap(object.list[[1]], pattern = "incoming", signaling = pathway.union, title = names(object.list)[1],color.use = pcols,width = 6, height = 12,color.heatmap = "GnBu")
+ht2 = netAnalysis_signalingRole_heatmap(object.list[[2]], pattern = "incoming", signaling = pathway.union, title = names(object.list)[2],color.use = pcols,width = 6, height = 12,color.heatmap = "GnBu")
+ht3 = netAnalysis_signalingRole_heatmap(object.list[[3]], pattern = "incoming", signaling = pathway.union, title = names(object.list)[3],color.use = pcols,width = 6, height = 12,color.heatmap = "GnBu")
+draw(ht1 + ht2+ht3, ht_gap = unit(0.2, "cm"))
+dev.print(pdf,file="f3C.pdf")
+############### 
