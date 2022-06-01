@@ -1,6 +1,6 @@
 library(Seurat)
 library(tidyverse)
-##MAST MAST_1.18.0
+##MAST MAST_1.18.0 Seurat 3.2.2
 mock.data<-Read10X("data/mock/filtered_feature_bc_matrix/")
 d7.data<-Read10X("data/d7/filtered_feature_bc_matrix/")
 d14.data<-Read10X("data/d14/filtered_feature_bc_matrix/")
