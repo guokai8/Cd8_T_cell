@@ -5,6 +5,7 @@ library(Seurat)
 library(GENIE3)
 library(AUCell)
 library(RcisTarget)
+### SCENIC_1.2.2 RcisTarget_1.10.0 AUCell_1.12.0     GENIE3_1.12.0 
 #library(loomR) 
 exprMat <- samf@assays$RNA@counts
 
