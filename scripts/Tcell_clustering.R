@@ -12,11 +12,11 @@ mock$group<-"Mock"
 d7$group<-"D7"
 d14$group<-"D14"
 ##
-mock[["percent.mt"]]<-PercentageFeatureSet(mock,pattern = "^mt")
+mock[["percent.mt"]]<-PercentageFeatureSet(mock,pattern = "^mt-")
 pp1<-VlnPlot(mock, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3,pt.size = 0)
-d7[["percent.mt"]]<-PercentageFeatureSet(d7,pattern = "^mt")
+d7[["percent.mt"]]<-PercentageFeatureSet(d7,pattern = "^mt-")
 pp2<-VlnPlot(d7, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3,pt.size = 0)
-d14[["percent.mt"]]<-PercentageFeatureSet(d14,pattern = "^mt")
+d14[["percent.mt"]]<-PercentageFeatureSet(d14,pattern = "^mt-")
 pp3<-VlnPlot(d14, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3,pt.size = 0)
 ##
 mock <- subset(mock, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 25 )
