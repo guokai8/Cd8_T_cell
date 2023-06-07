@@ -15,11 +15,11 @@ git clone https://github.com/guokai8/Cd8_T_cell/
 cd Cd8_T_cell
 ```
 Then load data into R 4.0.2 and do the analysis by following below steps
-#### Step1 (Fig.1, Fig.2, Fig.S1, Fig.S2, Data S1-S9)
+#### Step1 (Fig.2, Fig.S2, Fig.S3, Data S1-S9)
 run the Tcell_clustering.R for clustering, cell annotation, Differential expressed analysis and GSEA.
 
-#### Step2 (Fig.3, Fig.S3)
+#### Step2 (Fig.4, Fig.S3)
 run the tcell_cell.r for the cell cell communication analysis
 
-#### Step3 (Fig.3)
+#### Step3 (Fig.4)
 run the tcell_scenic.r for the TF network analysis
