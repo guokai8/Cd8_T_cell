@@ -5,7 +5,7 @@ Data were collected after mapping all fastq files to the mm10 genome with the ce
 Seurat v3, CellChat, tidyverse, richR, scGSVA, VennDetail, SCENIC(v1.2.2), ggrepel
 ```{}
 install.packages(c('Seurat','tidyverse'))
-BicManager::install(c("CellChat","VennDetail","SCENIC))
+BicManager::install(c("CellChat","VennDetail","SCENIC"))
 devtools::install_github('guokai8/richR')
 devtools::install_github('guokai8/scGSVA')
 ```
